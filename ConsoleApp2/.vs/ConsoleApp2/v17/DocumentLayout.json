@@ -1,0 +1,78 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\stral\\Desktop\\Universidad\\Term 9\\Game Tools and Pipelines\\Week 2\\Assignment2a\\VGP232_Assignment2a\\Week 1\\ConsoleApp2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5B528B01-0D0C-42BB-811C-25C0E5C85603}|ConsoleApp2\\ConsoleApp2.csproj|c:\\users\\stral\\desktop\\universidad\\term 9\\game tools and pipelines\\week 2\\assignment2a\\vgp232_assignment2a\\week 1\\consoleapp2\\consoleapp2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5B528B01-0D0C-42BB-811C-25C0E5C85603}|ConsoleApp2\\ConsoleApp2.csproj|solutionrelative:consoleapp2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5B528B01-0D0C-42BB-811C-25C0E5C85603}|ConsoleApp2\\ConsoleApp2.csproj|c:\\users\\stral\\desktop\\universidad\\term 9\\game tools and pipelines\\week 2\\assignment2a\\vgp232_assignment2a\\week 1\\consoleapp2\\consoleapp2\\consoleapp2.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5B528B01-0D0C-42BB-811C-25C0E5C85603}|ConsoleApp2\\ConsoleApp2.csproj|solutionrelative:consoleapp2\\consoleapp2.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5B528B01-0D0C-42BB-811C-25C0E5C85603}|ConsoleApp2\\ConsoleApp2.csproj|c:\\users\\stral\\desktop\\universidad\\term 9\\game tools and pipelines\\week 2\\assignment2a\\vgp232_assignment2a\\week 1\\consoleapp2\\consoleapp2\\consoleapp2.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{5B528B01-0D0C-42BB-811C-25C0E5C85603}|ConsoleApp2\\ConsoleApp2.csproj|solutionrelative:consoleapp2\\consoleapp2.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 461,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ConsoleApp2.csproj",
+              "DocumentMoniker": "C:\\Users\\stral\\Desktop\\Universidad\\Term 9\\Game Tools and Pipelines\\Week 2\\Assignment2a\\VGP232_Assignment2a\\Week 1\\ConsoleApp2\\ConsoleApp2\\ConsoleApp2.csproj",
+              "RelativeDocumentMoniker": "ConsoleApp2\\ConsoleApp2.csproj",
+              "ToolTip": "C:\\Users\\stral\\Desktop\\Universidad\\Term 9\\Game Tools and Pipelines\\Week 2\\Assignment2a\\VGP232_Assignment2a\\Week 1\\ConsoleApp2\\ConsoleApp2\\ConsoleApp2.csproj",
+              "RelativeToolTip": "ConsoleApp2\\ConsoleApp2.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-06T05:05:36.514Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ConsoleApp2",
+              "DocumentMoniker": "C:\\Users\\stral\\Desktop\\Universidad\\Term 9\\Game Tools and Pipelines\\Week 2\\Assignment2a\\VGP232_Assignment2a\\Week 1\\ConsoleApp2\\ConsoleApp2\\ConsoleApp2.csproj",
+              "RelativeDocumentMoniker": "ConsoleApp2\\ConsoleApp2.csproj",
+              "ToolTip": "C:\\Users\\stral\\Desktop\\Universidad\\Term 9\\Game Tools and Pipelines\\Week 2\\Assignment2a\\VGP232_Assignment2a\\Week 1\\ConsoleApp2\\ConsoleApp2\\ConsoleApp2.csproj",
+              "RelativeToolTip": "ConsoleApp2\\ConsoleApp2.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-06T05:05:40.487Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\stral\\Desktop\\Universidad\\Term 9\\Game Tools and Pipelines\\Week 2\\Assignment2a\\VGP232_Assignment2a\\Week 1\\ConsoleApp2\\ConsoleApp2\\Program.cs",
+              "RelativeDocumentMoniker": "ConsoleApp2\\Program.cs",
+              "ToolTip": "C:\\Users\\stral\\Desktop\\Universidad\\Term 9\\Game Tools and Pipelines\\Week 2\\Assignment2a\\VGP232_Assignment2a\\Week 1\\ConsoleApp2\\ConsoleApp2\\Program.cs",
+              "RelativeToolTip": "ConsoleApp2\\Program.cs",
+              "ViewState": "AgIAADsAAAAAAAAAAAAwwDAAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T03:02:26.657Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
