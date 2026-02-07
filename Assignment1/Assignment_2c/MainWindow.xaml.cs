@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WeaponLib;
+using System.ComponentModel;
 
 namespace Assignment_2c
 {
@@ -21,5 +22,6 @@ namespace Assignment_2c
         {
             InitializeComponent();
         }
+       
     }
 }
