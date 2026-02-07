@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Assignment2a\Assignment2a.csproj" />
     <ProjectReference Include="..\WeaponLib\WeaponLib.csproj" />
   </ItemGroup>
 

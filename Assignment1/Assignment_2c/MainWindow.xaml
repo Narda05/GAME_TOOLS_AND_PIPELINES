@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Assignment_2c"
         mc:Ignorable="d"
-        Title="Weapons Editor" Height="700" Width="500" Background="LightGray">
+        Title="Weapons Editor" Height="700" Width="500" Background="#FFEEEEEE">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -13,14 +13,14 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <!--Button Grid-->
-        <Rectangle Grid.Row="0" Fill="LightGray" />
+        <Rectangle Grid.Row="0" Fill="#FFEEEEEE" />
         <Grid Grid.Row="0">
-            <Button x:Name="LoadClicked" Content="Load" HorizontalAlignment="Left" Margin="17,0,0,0" VerticalAlignment="Center" Width="100" Height="30" />
-            <Button x:Name="SaveClicked" Content="Save" HorizontalAlignment="Left" Margin="140,0,0,0" VerticalAlignment="Center" Width="100" Height="30" />
+            <Button x:Name="LoadClicked" Content="Load" HorizontalAlignment="Left" Margin="17,0,0,0" VerticalAlignment="Center" Width="100" Height="30" Click="LoadClicked_Click" FontFamily="Agency FB" Background="#FFD6D6D6" BorderBrush="#FFD6D6D6" FontSize="22" />
+            <Button x:Name="SaveClicked" Content="Save" HorizontalAlignment="Left" Margin="140,0,0,0" VerticalAlignment="Center" Width="100" Height="30" Click="SaveClicked_Click" Background="#FFD6D6D6" BorderBrush="#FFD6D6D6" FontFamily="Agency FB" FontSize="22" />
 
         </Grid>
         <!--Sort Grid-->
-        <Rectangle Grid.Row="1" Fill="LightGray" />
+        <Rectangle Grid.Row="1" Fill="#FFEEEEEE" />
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -33,28 +33,23 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Sort by:" VerticalAlignment="Center" Margin="20,1,5,5"/>
+            <TextBlock Text="Sort by:" VerticalAlignment="Center" Margin="20,1,5,5" FontFamily="Agency FB" FontSize="18"/>
 
             <!-- First rode -->
-            <StackPanel Grid.Column="1"
-                Orientation="Horizontal"
-                Margin="10,0,0,0">
-                <RadioButton Content="Name" Margin="50,5,5,5"/>
-                <RadioButton Content="BaseAttack" Margin="12,5,5,5"/>
-                <RadioButton Content="Rarity" Margin="30,5,5,5"/>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10,0,0,0">
+                <RadioButton Content="Name" Margin="50,5,5,5" Checked="RadioButton_Checked" FontFamily="Agency FB"/>
+                <RadioButton Content="BaseAttack" Margin="15,5,6,5" Checked="RadioButton_Checked" FontFamily="Agency FB"/>
+                <RadioButton Content="Rarity" Margin="30,5,5,5" Checked="RadioButton_Checked" FontFamily="Agency FB"/>
             </StackPanel>
             <!-- Second Rode -->
-            <StackPanel Grid.Row="1"
-                Grid.Column="1"
-                Orientation="Horizontal"
-                Margin="10,0,0,0">
-                <RadioButton Content="Passive" Margin="50,5,5,5"/>
-                <RadioButton Content="SecondaryStat" Margin="5"/>
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="10,0,0,0">
+                <RadioButton Content="Passive" Margin="50,5,5,5" Checked="RadioButton_Checked" FontFamily="Agency FB"/>
+                <RadioButton Content="SecondaryStat" Margin="5" Checked="RadioButton_Checked" FontFamily="Agency FB"/>
             </StackPanel>
         </Grid>
 
         <!--Filter by name Grid-->
-        <Rectangle Grid.Row="2" Fill="GreenYellow" />
+        <Rectangle Grid.Row="2" Fill="#FFEEEEEE" />
         <Grid Grid.Row="2" Margin="0,10,0,10" HorizontalAlignment="Center" Width="480">
             <Grid.ColumnDefinitions>
                 <!-- Izquierda -->
@@ -81,11 +76,15 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="Show only type:"
-                       VerticalAlignment="Center"
-                       Margin="0,0,10,0"/>
+                    <TextBlock Text="Show only type:" VerticalAlignment="Center" Margin="0,0,10,0" FontFamily="Agency FB" FontSize="18"/>
 
-                    <ComboBox Grid.Column="1" Height="25">
+                    <ComboBox x:Name="FilterTypeComboBox" Grid.Column="1" Height="25" SelectionChanged="ShowOnlyType_SelectionChanged" FontFamily="Agency FB" FontSize="18" BorderBrush="#FFFAFAFA" Foreground="Black">
+                        <ComboBox.Background>
+                            <LinearGradientBrush EndPoint="0,1">
+                                <GradientStop Color="#FFF0F0F0"/>
+                                <GradientStop Color="#FFFAFAFA" Offset="1"/>
+                            </LinearGradientBrush>
+                        </ComboBox.Background>
                         <ComboBoxItem Content="All" IsSelected="True"/>
                         <ComboBoxItem Content="Sword"/>
                         <ComboBoxItem Content="Bow"/>
@@ -100,15 +99,13 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="Filter by name:"
-                       VerticalAlignment="Center"
-                       Margin="0,0,10,0"/>
+                    <TextBlock Text="Filter by name:" VerticalAlignment="Center" Margin="0,0,10,0" FontFamily="Agency FB" FontSize="18"/>
 
-                    <TextBox Grid.Column="1" Height="25" Margin="8,0,0,0"/>
+                    <TextBox x:Name="FilterNameTextBox" Grid.Column="1" Height="25" Margin="8,0,0,0" TextChanged="FilterNameText_TextChanged" FontFamily="Agency FB" FontSize="18"/>
                 </Grid>
 
                 <!-- LIST -->
-                <ListBox Grid.Row="2" Margin="5"/>
+                <ListBox x:Name="WeaponListBox" Grid.Row="2" Margin="5"/>
             </Grid>
 
             <!-- ================= RIGHT SIDE BUTTONS ================= -->
@@ -120,16 +117,9 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Button x:Name="AddClicked" Content="Add" Width="100" Height="30" Margin="5"/>
-
-                <Button x:Name="EditClicked" Grid.Row="1" Content="Edit" Width="100" Height="30" Margin="5"/>
-
-                <Button x:Name="RemoveClicked"
-                Grid.Row="2"
-                Content="Remove"
-                Width="100"
-                Height="30"
-                Margin="5"/>
+                <Button x:Name="AddClicked" Content="Add" Width="100" Height="30" Margin="5" Click="AddClicked_Click" Background="#FFD6D6D6" BorderBrush="#FFD6D6D6" FontFamily="Agency FB" FontSize="22"/>
+                <Button x:Name="EditClicked" Grid.Row="1" Content="Edit" Width="100" Height="30" Margin="5" Click="EditClicked_Click" Background="#FFD6D6D6" BorderBrush="#FFD6D6D6" FontFamily="Agency FB" FontSize="22"/>
+                <Button x:Name="RemoveClicked" Grid.Row="2" Content="Remove" Width="100" Height="30" Margin="5" Click="RemoveClicked_Click" Background="#FFD6D6D6" BorderBrush="#FFD6D6D6" FontFamily="Agency FB" FontSize="22"/>
             </Grid>
         </Grid>
     </Grid>

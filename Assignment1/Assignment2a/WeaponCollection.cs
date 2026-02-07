@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 
 namespace Assignment2a
 {
-    class WeaponCollection : List<Weapon>, IPeristence, IXmlSerializable, IJsonSerializable, ICsvSerializable
+    public class WeaponCollection : List<Weapon>, IPeristence, IXmlSerializable, IJsonSerializable, ICsvSerializable
     {
         public bool Load(string filename)
         {

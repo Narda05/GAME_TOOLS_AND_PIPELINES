@@ -5,8 +5,89 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Assignment_2c"
         mc:Ignorable="d"
-        Title="Add Weapon" Height="450" Width="800">
+        Title="Add Weapon" Height="550" Width="500" Background="#FFEEEEEE">
     <Grid>
-        
+        <Grid Margin="15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Name -->
+                <RowDefinition Height="Auto"/>
+                <!-- Type -->
+                <RowDefinition Height="Auto"/>
+                <!-- Description box -->
+                <RowDefinition Height="Auto"/>
+                <!-- Image URL -->
+                <RowDefinition Height="Auto"/>
+                <!-- Rarity -->
+                <RowDefinition Height="Auto"/>
+                <!-- Base Attack -->
+                <RowDefinition Height="Auto"/>
+                <!-- Secondary -->
+                <RowDefinition Height="Auto"/>
+                <!-- Passive -->
+                <RowDefinition Height="Auto"/>
+                <!-- Buttons -->
+            </Grid.RowDefinitions>
+
+            <!-- NAME -->
+            <TextBlock Text="Name" Grid.Row="0" Margin="5" VerticalAlignment="Center" FontFamily="Agency FB" FontSize="18"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="5" Height="25"/>
+
+            <!-- TYPE -->
+            <TextBlock Text="Type" Grid.Row="1" Margin="5" VerticalAlignment="Center" FontFamily="Agency FB" FontSize="18"/>
+            <ComboBox Grid.Row="1" Grid.Column="1" Margin="5" Height="25">
+                <ComboBoxItem Content="None"/>
+                <ComboBoxItem Content="Sword"/>
+                <ComboBoxItem Content="Bow"/>
+            </ComboBox>
+
+            <!-- DESCRIPTION / BIG BOX -->
+            <TextBlock Text="" Grid.Row="2" Margin="5"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Height="90"
+             AcceptsReturn="True" TextWrapping="Wrap"/>
+
+            <!-- IMAGE URL -->
+            <TextBlock Text="Image URL" Grid.Row="3" Margin="5" VerticalAlignment="Center" FontFamily="Agency FB" FontSize="18"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Height="25"/>
+
+            <!-- RARITY -->
+            <TextBlock Text="Rarity" Grid.Row="4" Margin="5" VerticalAlignment="Center" FontFamily="Agency FB" FontSize="18"/>
+            <ComboBox Grid.Row="4" Grid.Column="1" Margin="5" Height="25">
+                <ComboBoxItem Content="1"/>
+                <ComboBoxItem Content="2"/>
+                <ComboBoxItem Content="3"/>
+                <ComboBoxItem Content="4"/>
+                <ComboBoxItem Content="5"/>
+            </ComboBox>
+
+            <!-- BASE ATTACK -->
+            <TextBlock Text="Base Attack" Grid.Row="5" Margin="5" VerticalAlignment="Center" FontFamily="Agency FB"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Margin="5" Height="25"/>
+
+            <!-- SECONDARY STAT -->
+            <TextBlock Text="Secondary Stat" Grid.Row="6" Margin="5" VerticalAlignment="Center" FontFamily="Agency FB" FontSize="18"/>
+            <TextBox Grid.Row="6" Grid.Column="1" Margin="5" Height="25"/>
+
+            <!-- PASSIVE -->
+            <TextBlock Text="Passive" Grid.Row="7" Margin="5" VerticalAlignment="Top" FontFamily="Agency FB" FontSize="18"/>
+            <TextBox Grid.Row="7" Grid.Column="1" Margin="5" Height="60"
+             AcceptsReturn="True" TextWrapping="Wrap"/>
+
+            <!-- BUTTONS -->
+            <StackPanel Grid.Row="8" Grid.ColumnSpan="2"
+                Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                Margin="5">
+                <Button Content="Generate" Width="90" Margin="5" FontFamily="Agency FB" FontSize="22"/>
+                <Button Content="Cancel" Width="90" Margin="5" FontFamily="Agency FB" FontSize="22"/>
+                <Button Content="Add" Width="90" Margin="5" FontFamily="Agency FB" FontSize="22"/>
+            </StackPanel>
+
+        </Grid>
     </Grid>
 </Window>
