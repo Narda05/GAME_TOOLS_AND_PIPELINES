@@ -83,9 +83,9 @@
                 Orientation="Horizontal"
                 HorizontalAlignment="Right"
                 Margin="5">
-                <Button Content="Generate" Width="90" Margin="5" FontFamily="Agency FB" FontSize="22"/>
-                <Button Content="Cancel" Width="90" Margin="5" FontFamily="Agency FB" FontSize="22"/>
-                <Button Content="Add" Width="90" Margin="5" FontFamily="Agency FB" FontSize="22"/>
+                <Button x:Name="GenerateClick" Content="Generate" Width="90" Margin="5" FontFamily="Agency FB" FontSize="22"/>
+                <Button x:Name="CancelClick" Content="Cancel" Width="90" Margin="5" FontFamily="Agency FB" FontSize="22" Click="CancelClick_Click"/>
+                <Button x:Name="SaveClick" Content="Save" Width="90" Margin="5" FontFamily="Agency FB" FontSize="22" Click="SaveClick_Click"/>
             </StackPanel>
 
         </Grid>

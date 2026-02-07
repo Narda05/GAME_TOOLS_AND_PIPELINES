@@ -24,5 +24,15 @@ namespace Assignment_2c
         {
             InitializeComponent();
         }
+
+        private void SaveClick_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CancelClick_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

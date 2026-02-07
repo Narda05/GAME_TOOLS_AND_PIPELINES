@@ -33,6 +33,15 @@ namespace Assignment_2c
 
             _weaponView = CollectionViewSource.GetDefaultView(WeaponListBox.ItemsSource);
 
+            FilterTypeComboBox.Items.Add("All");
+
+            foreach (Assignment2a.Weapon.WeaponType type in Enum.GetValues(typeof(Assignment2a.Weapon.WeaponType)))
+            {
+                FilterTypeComboBox.Items.Add(type);
+            }
+
+            FilterTypeComboBox.SelectedIndex = 0;
+
         }
 
         private void LoadClicked_Click(object sender, RoutedEventArgs e)
@@ -43,6 +52,7 @@ namespace Assignment_2c
             if (dialog.ShowDialog() == true)
             {
                 mWeaponCollection.Load(dialog.FileName);
+                WeaponListBox.Items.Refresh();
             }
         }
 
@@ -78,17 +88,80 @@ namespace Assignment_2c
 
         private void ShowOnlyType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (FilterTypeComboBox.SelectedItem == null)
+                return;
+
+            if (FilterTypeComboBox.SelectedItem is string)
+            {
+                // ALL
+                WeaponListBox.ItemsSource = mWeaponCollection;
+            }
+            else
+            {
+                Assignment2a.Weapon.WeaponType selectedType =
+                    (Assignment2a.Weapon.WeaponType)FilterTypeComboBox.SelectedItem;
+
+                WeaponListBox.ItemsSource =
+                    mWeaponCollection.GetAllWeaponsOfType(selectedType);
+            }
+            FilterNameText_TextChanged(null, null);
 
         }
 
         private void FilterNameText_TextChanged(object sender, TextChangedEventArgs e)
         {
+            // Get current filter text
+            string filter = FilterNameTextBox?.Text?.Trim();
 
+            // Get the view for the current ItemsSource (works whether ItemsSource is the full collection or a typed subset)
+            ICollectionView view = CollectionViewSource.GetDefaultView(WeaponListBox.ItemsSource);
+            if (view == null)
+                return;
+
+            if (string.IsNullOrEmpty(filter))
+            {
+                // Remove filter
+                view.Filter = null;
+            }
+            else
+            {
+                // Apply case-insensitive name contains filter
+                view.Filter = item =>
+                {
+                    if (item is Assignment2a.Weapon w)
+                    {
+                        return !string.IsNullOrEmpty(w.Name) &&
+                               w.Name.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0;
+                    }
+                    return false;
+                };
+            }
+
+            view.Refresh();
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
+            if (sender is not RadioButton rb) return;
 
+            string column = rb.Content?.ToString();
+            if (string.IsNullOrWhiteSpace(column)) return;
+
+            // Ask the collection to sort by the selected column
+            mWeaponCollection.SortBy(column);
+
+            // Re-populate the ListBox according to current type filter
+            if (FilterTypeComboBox.SelectedItem == null || FilterTypeComboBox.SelectedItem is string)
+            {
+                WeaponListBox.ItemsSource = mWeaponCollection;
+            }
+            else
+            {
+                var selectedType = (Assignment2a.Weapon.WeaponType)FilterTypeComboBox.SelectedItem;
+                WeaponListBox.ItemsSource = mWeaponCollection.GetAllWeaponsOfType(selectedType);
+            }
+
+            WeaponListBox.Items.Refresh();
         }
     }
 }
