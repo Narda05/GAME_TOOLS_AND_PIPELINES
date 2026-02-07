@@ -14,9 +14,20 @@ namespace Assignment2a
         private WeaponCollection WeaponCollection;
         private string inputPath;
         private string outputPath;
+        private string jsonPath;
+        private string xmlPath;
+        private string emptyJsonPath;
+        private string emptyCsvPath;
+        private string emptyXmlPath;
+
 
         const string INPUT_FILE = "data2.csv";
         const string OUTPUT_FILE = "output.csv";
+        const string JSON_FILE = "weapons.json";
+        const string XML_FILE = "weapons.xml";
+        const string EMPTY_JSON_FILE = "empty.json";
+        const string EMPTY_CSV_FILE = "empty.csv";
+        const string EMPTY_XML_FILE = "empty.xml";
 
         // A helper function to get the directory of where the actual path is.
         private string CombineToAppPath(string filename)
@@ -29,6 +40,11 @@ namespace Assignment2a
         {
             inputPath = CombineToAppPath(INPUT_FILE);
             outputPath = CombineToAppPath(OUTPUT_FILE);
+            jsonPath = CombineToAppPath(JSON_FILE);
+            xmlPath = CombineToAppPath(XML_FILE);
+            emptyJsonPath = CombineToAppPath(EMPTY_JSON_FILE);
+            emptyCsvPath = CombineToAppPath(EMPTY_CSV_FILE);
+            emptyXmlPath = CombineToAppPath(EMPTY_XML_FILE);
             WeaponCollection = new WeaponCollection();
         }
 
@@ -39,6 +55,26 @@ namespace Assignment2a
             if (File.Exists(outputPath))
             {
                 File.Delete(outputPath);
+            }
+            if (File.Exists(jsonPath))
+            {
+                File.Delete(jsonPath);
+            }
+            if (File.Exists(xmlPath))
+            {
+                File.Delete(xmlPath);
+            }
+            if (File.Exists(emptyJsonPath))
+            {
+                File.Delete(emptyJsonPath);
+            }
+            if (File.Exists(emptyCsvPath))
+            {
+                File.Delete(emptyCsvPath);
+            }
+            if (File.Exists(emptyXmlPath))
+            {
+                File.Delete(emptyXmlPath);
             }
         }
 
@@ -117,6 +153,192 @@ namespace Assignment2a
             var reloaded = new WeaponCollection();
             Assert.That(reloaded.Load(outputPath), Is.True);
             Assert.That(reloaded.Count, Is.EqualTo(0));
+        }
+
+        // ------------------ JSON serialization unit tests ------------------
+        [Test]
+        public void WeaponCollection_Load_Save_Load_ValidJson()
+        {
+            // Load CSV, Save(...) to JSON, then Load(...) the JSON output and validate 95 entries.
+            Assert.That(WeaponCollection.Load(inputPath), Is.True, "Initial CSV load should succeed.");
+            Assert.That(WeaponCollection.Save(jsonPath), Is.True, "Saving to JSON via Save should succeed.");
+
+            var reloaded = new WeaponCollection();
+            Assert.That(reloaded.Load(jsonPath), Is.True, "Loading saved JSON via Load should succeed.");
+            Assert.That(reloaded.Count, Is.EqualTo(95), "Reloaded collection should contain 95 entries.");
+        }
+
+        [Test]
+        public void WeaponCollection_Load_SaveAsJSON_Load_ValidJson()
+        {
+            // Load CSV, SaveAsJSON(...) to weapons.json, then Load(...) the JSON output and validate 95 entries.
+            Assert.That(WeaponCollection.Load(inputPath), Is.True, "Initial CSV load should succeed.");
+            Assert.That(WeaponCollection.SaveAsJSON(jsonPath), Is.True, "Saving to JSON via SaveAsJSON should succeed.");
+
+            var reloaded = new WeaponCollection();
+            Assert.That(reloaded.Load(jsonPath), Is.True, "Loading saved JSON via Load should succeed.");
+            Assert.That(reloaded.Count, Is.EqualTo(95), "Reloaded collection should contain 95 entries.");
+        }
+
+        [Test]
+        public void WeaponCollection_Load_SaveAsJSON_LoadJSON_ValidJson()
+        {
+            // Load CSV, SaveAsJSON(...) to weapons.json, then LoadJSON(...) the JSON output and validate 95 entries.
+            Assert.That(WeaponCollection.Load(inputPath), Is.True, "Initial CSV load should succeed.");
+            Assert.That(WeaponCollection.SaveAsJSON(jsonPath), Is.True, "Saving to JSON via SaveAsJSON should succeed.");
+
+            var reloaded = new WeaponCollection();
+            Assert.That(reloaded.LoadJSON(jsonPath), Is.True, "Loading saved JSON via LoadJSON should succeed.");
+            Assert.That(reloaded.Count, Is.EqualTo(95), "Reloaded collection should contain 95 entries.");
+        }
+
+        [Test]
+        public void WeaponCollection_Load_Save_LoadJSON_ValidJson()
+        {
+            // Load CSV, Save(...) to weapons.json, then LoadJSON(...) the JSON output and validate 95 entries.
+            Assert.That(WeaponCollection.Load(inputPath), Is.True, "Initial CSV load should succeed.");
+            Assert.That(WeaponCollection.Save(jsonPath), Is.True, "Saving to JSON via Save should succeed.");
+
+            var reloaded = new WeaponCollection();
+            Assert.That(reloaded.LoadJSON(jsonPath), Is.True, "Loading saved JSON via LoadJSON should succeed.");
+            Assert.That(reloaded.Count, Is.EqualTo(95), "Reloaded collection should contain 95 entries.");
+        }
+
+        // ------------------ CSV parsing unit tests ------------------
+
+        [Test]
+        public void WeaponCollection_Load_Save_Load_ValidCsv()
+        {
+            // Load CSV, Save(...) to CSV, then Load(...) the CSV output and validate 95 entries.
+            Assert.That(WeaponCollection.Load(inputPath), Is.True, "Initial CSV load should succeed.");
+            Assert.That(WeaponCollection.Save(outputPath), Is.True, "Saving to CSV via Save should succeed.");
+
+            var reloaded = new WeaponCollection();
+            Assert.That(reloaded.Load(outputPath), Is.True, "Loading saved CSV via Load should succeed.");
+            Assert.That(reloaded.Count, Is.EqualTo(95), "Reloaded collection should contain 95 entries.");
+        }
+
+        [Test]
+        public void WeaponCollection_Load_SaveAsCSV_LoadCSV_ValidCsv()
+        {
+            // Load CSV, SaveAsCSV(...) to output.csv, then LoadCSV(...) the CSV output and validate 95 entries.
+            Assert.That(WeaponCollection.Load(inputPath), Is.True, "Initial CSV load should succeed.");
+            Assert.That(WeaponCollection.SaveAsCSV(outputPath), Is.True, "Saving to CSV via SaveAsCSV should succeed.");
+
+            var reloaded = new WeaponCollection();
+            Assert.That(reloaded.LoadCSV(outputPath), Is.True, "Loading saved CSV via LoadCSV should succeed.");
+            Assert.That(reloaded.Count, Is.EqualTo(95), "Reloaded collection should contain 95 entries.");
+        }
+
+
+        // ------------------ XML serialization unit tests ------------------
+
+        [Test]
+        public void WeaponCollection_Load_Save_Load_ValidXml()
+        {
+            // Load CSV, Save(...) to XML, then Load(...) the XML output and validate 95 entries.
+            Assert.That(WeaponCollection.Load(inputPath), Is.True, "Initial CSV load should succeed.");
+            Assert.That(WeaponCollection.Save(xmlPath), Is.True, "Saving to XML via Save should succeed.");
+
+            var reloaded = new WeaponCollection();
+            Assert.That(reloaded.Load(xmlPath), Is.True, "Loading saved XML via Load should succeed.");
+            Assert.That(reloaded.Count, Is.EqualTo(95), "Reloaded collection should contain 95 entries.");
+        }
+
+        [Test]
+        public void WeaponCollection_Load_SaveAsXML_LoadXML_ValidXml()
+        {
+            // Load CSV, SaveAsXML(...) to weapons.xml, then LoadXML(...) the XML output and validate 95 entries.
+            Assert.That(WeaponCollection.Load(inputPath), Is.True, "Initial CSV load should succeed.");
+            Assert.That(WeaponCollection.SaveAsXML(xmlPath), Is.True, "Saving to XML via SaveAsXML should succeed.");
+
+            var reloaded = new WeaponCollection();
+            Assert.That(reloaded.LoadXML(xmlPath), Is.True, "Loading saved XML via LoadXML should succeed.");
+            Assert.That(reloaded.Count, Is.EqualTo(95), "Reloaded collection should contain 95 entries.");
+        }
+
+        // ------------------ Save empty as JSON unit test ------------------
+
+        [Test]
+        public void WeaponCollection_SaveEmpty_Load_ValidJson()
+        {
+            // Create empty WeaponCollection, SaveAsJSON(...) to empty.json, then Load(...) the JSON output and validate 0 entries.
+            WeaponCollection.Clear();
+            Assert.That(WeaponCollection.SaveAsJSON(emptyJsonPath), Is.True, "Saving empty collection to JSON should succeed.");
+
+            var reloaded = new WeaponCollection();
+            Assert.That(reloaded.Load(emptyJsonPath), Is.True, "Loading saved empty JSON via Load should succeed.");
+            Assert.That(reloaded.Count, Is.EqualTo(0), "Reloaded collection should be empty.");
+        }
+
+        // ------------------ Save empty as CSV unit test ------------------
+
+        [Test]
+        public void WeaponCollection_SaveEmpty_Load_ValidCsv()
+        {
+            // Create empty WeaponCollection, SaveAsCSV(...) to empty.csv, then Load(...) the CSV output and validate 0 entries.
+            WeaponCollection.Clear();
+            Assert.That(WeaponCollection.SaveAsCSV(emptyCsvPath), Is.True, "Saving empty collection to CSV should succeed.");
+
+            var reloaded = new WeaponCollection();
+            Assert.That(reloaded.Load(emptyCsvPath), Is.True, "Loading saved empty CSV via Load should succeed.");
+            Assert.That(reloaded.Count, Is.EqualTo(0), "Reloaded collection should be empty.");
+        }
+
+        // ------------------ Save empty as XML unit test ------------------
+
+        [Test]
+        public void WeaponCollection_SaveEmpty_Load_ValidXml()
+        {
+            // Create empty WeaponCollection, SaveAsXML(...) to empty.xml, then Load(...) the XML output and validate 0 entries.
+            WeaponCollection.Clear();
+            Assert.That(WeaponCollection.SaveAsXML(emptyXmlPath), Is.True, "Saving empty collection to XML should succeed.");
+
+            var reloaded = new WeaponCollection();
+            Assert.That(reloaded.Load(emptyXmlPath), Is.True, "Loading saved empty XML via Load should succeed.");
+            Assert.That(reloaded.Count, Is.EqualTo(0), "Reloaded collection should be empty.");
+        }
+
+        // ------------------ Invalid format tests ------------------
+
+        [Test]
+        public void WeaponCollection_Load_SaveJSON_LoadXML_InvalidXml()
+        {
+            // Save JSON, then try to load it with LoadXML => should fail and produce empty collection.
+            Assert.That(WeaponCollection.Load(inputPath), Is.True, "Initial CSV load should succeed.");
+            Assert.That(WeaponCollection.SaveAsJSON(jsonPath), Is.True, "Saving collection as JSON should succeed.");
+
+            var reloaded = new WeaponCollection();
+            Assert.That(reloaded.LoadXML(jsonPath), Is.False, "Loading a JSON file with LoadXML should fail.");
+            Assert.That(reloaded.Count, Is.EqualTo(0), "Reloaded collection should be empty after failed LoadXML.");
+        }
+
+        [Test]
+        public void WeaponCollection_Load_SaveXML_LoadJSON_InvalidJson()
+        {
+            // Save XML, then try to load it with LoadJSON => should fail and produce empty collection.
+            Assert.That(WeaponCollection.Load(inputPath), Is.True, "Initial CSV load should succeed.");
+            Assert.That(WeaponCollection.SaveAsXML(xmlPath), Is.True, "Saving collection as XML should succeed.");
+
+            var reloaded = new WeaponCollection();
+            Assert.That(reloaded.LoadJSON(xmlPath), Is.False, "Loading an XML file with LoadJSON should fail.");
+            Assert.That(reloaded.Count, Is.EqualTo(0), "Reloaded collection should be empty after failed LoadJSON.");
+        }
+
+        [Test]
+        public void WeaponCollection_ValidCsv_LoadXML_InvalidXml()
+        {
+            // Attempt to LoadXML on a CSV file => should fail and produce empty collection.
+            Assert.That(WeaponCollection.LoadXML(inputPath), Is.False, "LoadXML on a CSV file should fail.");
+            Assert.That(WeaponCollection.Count, Is.EqualTo(0), "Collection should be empty after failed LoadXML.");
+        }
+
+        [Test]
+        public void WeaponCollection_ValidCsv_LoadJSON_InvalidJson()
+        {
+            // Attempt to LoadJSON on a CSV file => should fail and produce empty collection.
+            Assert.That(WeaponCollection.LoadJSON(inputPath), Is.False, "LoadJSON on a CSV file should fail.");
+            Assert.That(WeaponCollection.Count, Is.EqualTo(0), "Collection should be empty after failed LoadJSON.");
         }
 
         // Weapon Unit Tests

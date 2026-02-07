@@ -1,15 +1,60 @@
-﻿using System;
+﻿using Assignment2a;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Assignment2a
 {
-    class WeaponCollection : List<Weapon>, IPeristence
+    class WeaponCollection : List<Weapon>, IPeristence, IXmlSerializable, IJsonSerializable, ICsvSerializable
     {
         public bool Load(string filename)
+        {
+            if (string.IsNullOrWhiteSpace(filename))
+            {
+                Console.WriteLine("Load failed: filename is null or empty.");
+                return false;
+            }
+
+            var ext = Path.GetExtension(filename).ToLowerInvariant();
+            return ext switch
+            {
+                ".xml" => LoadXML(filename),
+                ".json" => LoadJSON(filename),
+                ".csv" => LoadCSV(filename),
+                "" => LoadCSV(filename), // default to CSV if no extension provided
+                _ => UnsupportedLoadExtension(filename, ext)
+            };
+        }
+
+        public bool Save(string filename)
+        {
+            if (string.IsNullOrWhiteSpace(filename))
+            {
+                Console.WriteLine("Save failed: filename is null or empty.");
+                return false;
+            }
+
+            var ext = Path.GetExtension(filename).ToLowerInvariant();
+            return ext switch
+            {
+                ".xml" => SaveAsXML(filename),
+                ".json" => SaveAsJSON(filename),
+                ".csv" => SaveAsCSV(filename),
+                "" => SaveAsCSV(filename), // default to CSV if no extension provided
+                _ => UnsupportedSaveExtension(filename, ext)
+            };
+        }
+
+        // Implementation of IXmlSerializable, IJsonSerializable, and ICsvSerializable
+
+        // CSV 
+        public bool LoadCSV(string filename)
         {
             try
             {
@@ -29,9 +74,6 @@ namespace Assignment2a
                     if (Weapon.TryParseType(line, out var weapon))
                     {
                         Add(weapon);
-
-
-
                     }
                     else
                     {
@@ -39,16 +81,16 @@ namespace Assignment2a
                         continue;
                     }
                 }
-            return true;
-           }
-            catch(Exception ex)
+                return true;
+            }
+            catch (Exception ex)
             {
-                Console.WriteLine($"Load failed: {ex.Message}");
+                Console.WriteLine($"LoadCSV failed: {ex.Message}");
                 return false;
             }
         }
 
-        public bool Save(string filename)
+        public bool SaveAsCSV(string filename)
         {
             try
             {
@@ -57,11 +99,128 @@ namespace Assignment2a
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Save failed: {ex.Message}");
+                Console.WriteLine($"SaveAsCSV failed: {ex.Message}");
                 return false;
             }
         }
 
+        //XML
+        public bool LoadXML(string filename)
+        {
+            try
+            {
+                if (!File.Exists(filename))
+                {
+                    Console.WriteLine($"File not found: {filename}");
+                    return false;
+                }
+
+                var serializer = new XmlSerializer(typeof(List<Weapon>), new XmlRootAttribute("Weapons"));
+
+                using var stream = File.OpenRead(filename);
+                if (serializer.Deserialize(stream) is List<Weapon> list)
+                {
+                    Clear();
+    AddRange(list);
+                    return true;
+                }
+
+Console.WriteLine("LoadXML failed: deserialized data was not a list of Weapon.");
+return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"LoadXML failed: {ex.Message}");
+return false;
+            }
+        }
+
+        public bool SaveAsXML(string filename)
+{
+    try
+    {
+        var serializer = new XmlSerializer(typeof(List<Weapon>), new XmlRootAttribute("Weapons"));
+        using var stream = File.Create(filename);
+        // Serialize a simple List<Weapon> to keep XML shape straightforward
+        serializer.Serialize(stream, this.ToList());
+        return true;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"SaveAsXML failed: {ex.Message}");
+        return false;
+    }
+}
+
+
+// JSON
+private static JsonSerializerOptions JsonOptions()
+           => new JsonSerializerOptions
+           {
+               WriteIndented = true,
+               Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
+           };
+
+        public bool LoadJSON(string filename)
+        {
+            try
+            {
+                if (!File.Exists(filename))
+                {
+                    Console.WriteLine($"File not found: {filename}");
+                    return false;
+                }
+
+                var json = File.ReadAllText(filename);
+                var list = JsonSerializer.Deserialize<List<Weapon>>(json, JsonOptions());
+                if (list is null)
+                {
+                    Console.WriteLine("LoadJSON failed: deserialized to null.");
+                    return false;
+                }
+
+                Clear();
+                AddRange(list);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"LoadJSON failed: {ex.Message}");
+                return false;
+            }
+        }
+
+        public bool SaveAsJSON(string filename)
+        {
+            try
+            {
+                var json = JsonSerializer.Serialize(this.ToList(), JsonOptions());
+                File.WriteAllText(filename, json);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"SaveAsJSON failed: {ex.Message}");
+                return false;
+            }
+        }
+
+        public bool SaveXML(string path) => SaveAsXML(path);
+        public bool SaveJSON(string path) => SaveAsJSON(path);
+        public bool SaveCSV(string path) => SaveAsCSV(path);
+
+        // Helpers 
+        private bool UnsupportedLoadExtension(string filename, string ext)
+        {
+            Console.WriteLine($"Load failed: unsupported file extension '{ext}' for file '{filename}'.");
+            return false;
+        }
+
+        private bool UnsupportedSaveExtension(string filename, string ext)
+        {
+            Console.WriteLine($"Save failed: unsupported file extension '{ext}' for file '{filename}'.");
+            return false;
+        }
         public int GetHighestBaseAttack()
         {
             return this.Count == 0 ? 0 : this.Max(w => w.BaseAttack);
