@@ -36,28 +36,26 @@
 
             <!-- NAME -->
             <TextBlock Text="Name" Grid.Row="0" Margin="5" VerticalAlignment="Center" FontFamily="Agency FB" FontSize="18"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Margin="5" Height="25"/>
+            <TextBox x:Name="NameTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Height="25"/>
 
             <!-- TYPE -->
             <TextBlock Text="Type" Grid.Row="1" Margin="5" VerticalAlignment="Center" FontFamily="Agency FB" FontSize="18"/>
-            <ComboBox Grid.Row="1" Grid.Column="1" Margin="5" Height="25">
-                <ComboBoxItem Content="None"/>
-                <ComboBoxItem Content="Sword"/>
-                <ComboBoxItem Content="Bow"/>
+            <ComboBox x:Name="TypeComboBox" Grid.Row="1" Grid.Column="1" Margin="5" Height="25">
             </ComboBox>
 
-            <!-- DESCRIPTION / BIG BOX -->
-            <TextBlock Text="" Grid.Row="2" Margin="5"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Height="90"
-             AcceptsReturn="True" TextWrapping="Wrap"/>
-
+            <!-- DISPLAY IMAGE URL/ BIG BOX -->
+            <TextBlock Text="Preview" Grid.Row="2" Margin="5" VerticalAlignment="Top" FontFamily="Agency FB" FontSize="18"/>
+            <Border Grid.Row="2" Grid.Column="1" Margin="5" Height="90" BorderBrush="LightGray" BorderThickness="1" Background="White">
+                <Image x:Name="DisplayImage" Stretch="Uniform" />
+            </Border>
+            
+            <!-- IMAGE URL -->
             <!-- IMAGE URL -->
             <TextBlock Text="Image URL" Grid.Row="3" Margin="5" VerticalAlignment="Center" FontFamily="Agency FB" FontSize="18"/>
-            <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Height="25"/>
-
+            <TextBox x:Name="ImageTextBox" Grid.Row="3" Grid.Column="1" Margin="5" Height="25" TextChanged="ImageTextBox_TextChanged"/>
             <!-- RARITY -->
             <TextBlock Text="Rarity" Grid.Row="4" Margin="5" VerticalAlignment="Center" FontFamily="Agency FB" FontSize="18"/>
-            <ComboBox Grid.Row="4" Grid.Column="1" Margin="5" Height="25">
+            <ComboBox x:Name="RarityComboBox" Grid.Row="4" Grid.Column="1" Margin="5" Height="25">
                 <ComboBoxItem Content="1"/>
                 <ComboBoxItem Content="2"/>
                 <ComboBoxItem Content="3"/>
@@ -67,22 +65,19 @@
 
             <!-- BASE ATTACK -->
             <TextBlock Text="Base Attack" Grid.Row="5" Margin="5" VerticalAlignment="Center" FontFamily="Agency FB"/>
-            <TextBox Grid.Row="5" Grid.Column="1" Margin="5" Height="25"/>
+            <TextBox x:Name="BaseAttackTextBox" Grid.Row="5" Grid.Column="1" Margin="5" Height="25"/>
 
             <!-- SECONDARY STAT -->
             <TextBlock Text="Secondary Stat" Grid.Row="6" Margin="5" VerticalAlignment="Center" FontFamily="Agency FB" FontSize="18"/>
-            <TextBox Grid.Row="6" Grid.Column="1" Margin="5" Height="25"/>
+            <TextBox x:Name="SecondaryTextBox" Grid.Row="6" Grid.Column="1" Margin="5" Height="25"/>
 
             <!-- PASSIVE -->
             <TextBlock Text="Passive" Grid.Row="7" Margin="5" VerticalAlignment="Top" FontFamily="Agency FB" FontSize="18"/>
-            <TextBox Grid.Row="7" Grid.Column="1" Margin="5" Height="60"
+            <TextBox  x:Name="PassiveTextBox" Grid.Row="7" Grid.Column="1" Margin="5" Height="60"
              AcceptsReturn="True" TextWrapping="Wrap"/>
 
             <!-- BUTTONS -->
-            <StackPanel Grid.Row="8" Grid.ColumnSpan="2"
-                Orientation="Horizontal"
-                HorizontalAlignment="Right"
-                Margin="5">
+            <StackPanel Grid.Row="8" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
                 <Button x:Name="GenerateClick" Content="Generate" Width="90" Margin="5" FontFamily="Agency FB" FontSize="22"/>
                 <Button x:Name="CancelClick" Content="Cancel" Width="90" Margin="5" FontFamily="Agency FB" FontSize="22" Click="CancelClick_Click"/>
                 <Button x:Name="SaveClick" Content="Save" Width="90" Margin="5" FontFamily="Agency FB" FontSize="22" Click="SaveClick_Click"/>

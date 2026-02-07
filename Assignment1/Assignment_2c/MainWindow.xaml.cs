@@ -43,6 +43,23 @@ namespace Assignment_2c
             FilterTypeComboBox.SelectedIndex = 0;
 
         }
+        private void RefreshList()
+        {
+            if (FilterTypeComboBox.SelectedItem == null || FilterTypeComboBox.SelectedItem is string)
+            {
+                WeaponListBox.ItemsSource = mWeaponCollection;
+            }
+            else
+            {
+                var selectedType = (Assignment2a.Weapon.WeaponType)FilterTypeComboBox.SelectedItem;
+                WeaponListBox.ItemsSource = mWeaponCollection.GetAllWeaponsOfType(selectedType);
+            }
+
+            // Reapply name filter if any
+            FilterNameText_TextChanged(null, null);
+            WeaponListBox.Items.Refresh();
+        }
+
 
         private void LoadClicked_Click(object sender, RoutedEventArgs e)
         {
@@ -69,21 +86,68 @@ namespace Assignment_2c
 
         private void AddClicked_Click(object sender, RoutedEventArgs e)
         {
-            EditWindow win = new EditWindow();
-            if (win.ShowDialog() == true)
+            // Show EditWindow in Add mode
+            var win = new EditWindow();
+            win.Title = "Add Weapon";
+            if (win.ShowDialog() == true && win.ResultWeapon != null)
             {
-                
+                mWeaponCollection.Add(win.ResultWeapon);
+                RefreshList();
             }
         }
 
         private void EditClicked_Click(object sender, RoutedEventArgs e)
         {
-            
+            // Edit the selected weapon
+            if (WeaponListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Select a weapon to edit.", "Edit", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            var selected = WeaponListBox.SelectedItem as Assignment2a.Weapon;
+            if (selected == null)
+            {
+                MessageBox.Show("Selected item is not a weapon.", "Edit", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Pass the actual instance so EditWindow will update it in-place
+            var win = new EditWindow(selected);
+            win.Title = "Edit Weapon";
+            if (win.ShowDialog() == true)
+            {
+                // item was updated in-place (EditWindow updates original), refresh view
+                RefreshList();
+            }
         }
 
         private void RemoveClicked_Click(object sender, RoutedEventArgs e)
         {
+            if (WeaponListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Select a weapon to remove.", "Remove", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
 
+            var selected = WeaponListBox.SelectedItem as Assignment2a.Weapon;
+            if (selected == null)
+            {
+                MessageBox.Show("Selected item is not a weapon.", "Remove", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var result = MessageBox.Show($"Remove '{selected.Name}'?", "Confirm remove", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                // Try to remove the exact instance; if not found, remove by matching name/baseattack as fallback
+                if (!mWeaponCollection.Remove(selected))
+                {
+                    var toRemove = mWeaponCollection.Find(w => w.Name == selected.Name && w.BaseAttack == selected.BaseAttack && w.Rarity == selected.Rarity);
+                    if (toRemove != null) mWeaponCollection.Remove(toRemove);
+                }
+                RefreshList();
+            }
         }
 
         private void ShowOnlyType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -131,7 +195,7 @@ namespace Assignment_2c
                     if (item is Assignment2a.Weapon w)
                     {
                         return !string.IsNullOrEmpty(w.Name) &&
-                               w.Name.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0;
+                               w.Name.Contains(filter, StringComparison.OrdinalIgnoreCase);
                     }
                     return false;
                 };
