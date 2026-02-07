@@ -33,8 +33,6 @@ namespace Assignment_2c
 
             _weaponView = CollectionViewSource.GetDefaultView(WeaponListBox.ItemsSource);
 
-            //FilterTypeComboBox.ItemsSource =
-            //  Enum.GetNames(typeof(Weapon.WeaponType));
         }
 
         private void LoadClicked_Click(object sender, RoutedEventArgs e)
